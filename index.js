@@ -2,6 +2,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
+import path from 'path';
 
 // create instance of Express
 const app = express();
@@ -14,6 +15,11 @@ const API_URL = "https://api.openweathermap.org/data/2.5/weather?" ;
 // setup Middleware to parse the incoming data and serve static files
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static('public'));
+
+
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(process.cwd(), 'views'));
 
 // define the root route for handling HTTP GET requests
 app.get("/",(req,res)=>{
@@ -45,6 +51,7 @@ app.post("/post",async(req,res)=>{
   }
 });
 
+module.exports = app;
 // Start the server and log a message when it's running
 app.listen(port, () => {
   console.log(`Server running at ${port}`);
