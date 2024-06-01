@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Metadata for character set and viewport -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Title of the webpage -->
+    <title>Weather</title>
+    <link rel="stylesheet" href="/style/main.css">
+  </head>
+  <body>
+    <!-- Form for displaying weather information -->
+    <form action="/post" method="post">
+      
+      <div class="container">
+        <%if(locals.data){%>
+        <div class="search">
+          <input type="text" placeholder="enter the city name" name="cityname" spellcheck="false" required>
+          <button> <img src="/images/search.png" alt="img"></button>
+        </div>
+        <div class="weather">
+        <div class="weather-detail">
+          <img src="<%=imgPath%>"  class="weather-icon">
+          <h1 class="temp"><%=temp%>°C</h1>
+          <h2 class="city"><%=data.name%></h2>
+          </div>
+          <div class="detail">
+            <div class="col">
+              <img src="/images/humidity.png" alt="img">
+              <div class="col-inf">
+               <p class="percent"><%=data.main.humidity%>%</p>
+               <p>Humidity</p>
+              </div>
+            
+            </div>
+            <div class="col">
+              <div class="col-inf">
+                 <p>longitude: <%=data.coord.lon%></p>
+              <p>latitude: <%=data.coord.lat%></p>
+              </div>
+             
+            </div>
+            <div class="col">
+              <img src="/images/wind.png" alt="img">
+           <div class="col-inf">
+            <p class="speed"><%=data.wind.speed%>m/s</p>
+            <p>Wind speed</p>
+           </div>
+              
+          </div>
+            </div>
+          </div>
+          <%}else if(locals.error){%>
+            <div class="search">
+              <input type="text" placeholder="enter the city name" name="cityname" required>
+              <button> <img src="/images/search.png" alt="img"></button>
+            </div>
+            <div><p><%=error%></p></div>
+          <%}else{%>
+            <div class="search">
+              <input type="text" placeholder="enter the city name" name="cityname" required>
+              <button> <img src="/images/search.png" alt="img"></button>
+            </div>
+            <%}%>
+      </div>
+    </form>
+  </body>
+</html>
